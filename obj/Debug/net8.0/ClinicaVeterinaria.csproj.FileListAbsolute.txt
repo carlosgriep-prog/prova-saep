@@ -143,3 +143,4 @@ C:\Users\123897624\ClinicaVeterinaria\sistema\obj\Debug\net8.0\refint\ClinicaVet
 C:\Users\123897624\ClinicaVeterinaria\sistema\obj\Debug\net8.0\ClinicaVeterinaria.pdb
 C:\Users\123897624\ClinicaVeterinaria\sistema\obj\Debug\net8.0\ClinicaVeterinaria.genruntimeconfig.cache
 C:\Users\123897624\ClinicaVeterinaria\sistema\obj\Debug\net8.0\ref\ClinicaVeterinaria.dll
+C:\Users\123897624\ClinicaVeterinaria\sistema\obj\Debug\net8.0\ClinicaVeterinaria.sourcelink.json

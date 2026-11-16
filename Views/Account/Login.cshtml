@@ -1,19 +1,30 @@
-@model ClinicaVeterinaria.ViewModels.LoginViewModel
-
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4">
-        <h3 class="mb-3">Acesso ao Sistema</h3>
-        <form asp-action="Login" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="mb-3">
-                <label class="form-label">E-mail</label>
-                <input asp-for="Email" class="form-control" placeholder="admin@clinica.com" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <input asp-for="Senha" type="password" class="form-control" placeholder="123456" />
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Entrar</button>
-        </form>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Clínica Veterinária</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<header><nav class="navbar navbar-expand navbar-light bg-light mb-3"><div class="container flex-wrap">
+    <a class="navbar-brand" asp-controller="Home" asp-action="Index">Clínica Veterinária</a>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="d-flex gap-3 flex-wrap">
+            <a asp-controller="Home" asp-action="Index">Início</a>
+            <a asp-controller="Tutores" asp-action="Index">Tutores</a>
+            <a asp-controller="Pets" asp-action="Index">Pets</a>
+            <a asp-controller="Agendamentos" asp-action="Index">Agendamentos</a>
+            <span>@User.Identity.Name</span>
+            <form asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Sair</button>
+            </form>
+        </div>
+    }
+</div></nav></header>
+<div class="container"><main role="main" class="pb-3">@RenderBody()</main></div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body></html>
