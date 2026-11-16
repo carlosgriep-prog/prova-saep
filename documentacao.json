@@ -1,0 +1,116 @@
+{
+  "projeto": "ClinicaVeterinaria",
+  "arquitetura": "ASP.NET Core 8.0 MVC + Entity Framework Core + SQL Server Express",
+  "bancoDeDados": {
+    "nome": "saep_db",
+    "tabelas": [
+      {
+        "nome": "Usuarios",
+        "colunas": [
+          { "nome": "Id", "tipo": "INT", "chave": "PK" },
+          { "nome": "Nome", "tipo": "NVARCHAR" },
+          { "nome": "Email", "tipo": "NVARCHAR" },
+          { "nome": "SenhaHash", "tipo": "NVARCHAR" },
+          { "nome": "Perfil", "tipo": "NVARCHAR" }
+        ]
+      },
+      {
+        "nome": "Tutores",
+        "colunas": [
+          { "nome": "Id", "tipo": "INT", "chave": "PK" },
+          { "nome": "Nome", "tipo": "NVARCHAR" },
+          { "nome": "CpfCriptografado", "tipo": "NVARCHAR", "observacao": "Criptografia LGPD via CriptografiaService" },
+          { "nome": "Telefone", "tipo": "NVARCHAR" },
+          { "nome": "Email", "tipo": "NVARCHAR" }
+        ]
+      },
+      {
+        "nome": "Pets",
+        "colunas": [
+          { "nome": "Id", "tipo": "INT", "chave": "PK" },
+          { "nome": "Nome", "tipo": "NVARCHAR" },
+          { "nome": "Especie", "tipo": "NVARCHAR" },
+          { "nome": "Raca", "tipo": "NVARCHAR" },
+          { "nome": "DataNascimento", "tipo": "DATE" },
+          { "nome": "TutorId", "tipo": "INT", "chave": "FK -> Tutores.Id" }
+        ]
+      },
+      {
+        "nome": "Agendamentos",
+        "colunas": [
+          { "nome": "Id", "tipo": "INT", "chave": "PK" },
+          { "nome": "DataHora", "tipo": "DATETIME2" },
+          { "nome": "Motivo", "tipo": "NVARCHAR" },
+          { "nome": "Status", "tipo": "NVARCHAR" },
+          { "nome": "TutorId", "tipo": "INT", "chave": "FK -> Tutores.Id" },
+          { "nome": "PetId", "tipo": "INT", "chave": "FK -> Pets.Id" }
+        ]
+      }
+    ],
+    "relacionamentos": [
+      { "de": "Tutores (1)", "para": "Pets (N)", "chaveEstrangeira": "TutorId" },
+      { "de": "Tutores (1)", "para": "Agendamentos (N)", "chaveEstrangeira": "TutorId" },
+      { "de": "Pets (1)", "para": "Agendamentos (N)", "chaveEstrangeira": "PetId" }
+    ]
+  },
+  "camadasAplicacao": {
+    "models": ["Usuario", "Tutor", "Pet", "Agendamento"],
+    "viewModels": ["LoginViewModel", "TutorFormViewModel", "PetFormViewModel", "AgendamentoFormViewModel"],
+    "services": [
+      {
+        "nome": "CriptografiaService",
+        "responsabilidade": "Criptografar e descriptografar o CPF dos tutores (LGPD)"
+      }
+    ],
+    "data": [
+      {
+        "nome": "AppDbContext",
+        "responsabilidade": "Mapeamento ORM das tabelas e relacionamentos no SQL Server"
+      }
+    ],
+    "controllers": [
+      {
+        "nome": "AccountController",
+        "rotas": ["GET/POST /Account/Login", "POST /Account/Logout"],
+        "regras": "Autenticação por Cookie e expiração de sessão em 20 minutos de inatividade"
+      },
+      {
+        "nome": "HomeController",
+        "rotas": ["GET /Home/Index"],
+        "regras": "Exibe painel principal e nome do usuário logado"
+      },
+      {
+        "nome": "TutoresController",
+        "rotas": ["GET /Tutores/Index", "GET/POST /Tutores/Create", "GET/POST /Tutores/Edit", "GET/POST /Tutores/Delete"],
+        "regras": "CRUD completo, filtro de busca por termo e criptografia de CPF"
+      },
+      {
+        "nome": "PetsController",
+        "rotas": ["GET /Pets/Index", "GET/POST /Pets/Create", "GET/POST /Pets/Edit", "GET/POST /Pets/Delete"],
+        "regras": "CRUD vinculado obrigatoriamente a um Tutor cadastrado"
+      },
+      {
+        "nome": "AgendamentosController",
+        "rotas": ["GET /Agendamentos/Index", "GET/POST /Agendamentos/Create", "GET/POST /Agendamentos/Edit", "POST /Agendamentos/Delete"],
+        "regras": "Listagem ordenada por DataHora com todos os dados do Tutor e Pet, além de reagendamento"
+      }
+    ],
+    "views": {
+      "shared": ["_Layout.cshtml"],
+      "account": ["Login.cshtml"],
+      "home": ["Index.cshtml"],
+      "tutores": ["Index.cshtml", "Create.cshtml", "Edit.cshtml", "Delete.cshtml"],
+      "pets": ["Index.cshtml", "Create.cshtml", "Edit.cshtml", "Delete.cshtml"],
+      "agendamentos": ["Index.cshtml", "Create.cshtml", "Edit.cshtml"],
+      "estilos": ["wwwroot/css/site.css", "Bootstrap 5"]
+    }
+  },
+  "pacoteEntregaSAEP": {
+    "arquivosObrigatorios": [
+      "sistema/",
+      "saep_db.sql",
+      "diagrama_er.pdf",
+      "documentacao.pdf"
+    ]
+  }
+}
