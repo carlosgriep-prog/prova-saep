@@ -1,0 +1,15 @@
+@model List<ClinicaVeterinaria.Models.Pet>
+
+<div class="d-flex justify-content-between my-3">
+    <h3>Pets Cadastrados</h3>
+    <a asp-action="Create" class="btn btn-primary">+ Novo Pet</a>
+</div>
+<table class="table table-bordered">
+    <thead><tr><th>Nome</th><th>Espécie</th><th>Raça</th><th>Tutor</th></tr></thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr><td>@p.Nome</td><td>@p.Especie</td><td>@p.Raca</td><td>@p.Tutor.Nome</td></tr>
+        }
+    </tbody>
+</table>

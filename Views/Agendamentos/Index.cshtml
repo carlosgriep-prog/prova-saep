@@ -1,0 +1,21 @@
+@model List<ClinicaVeterinaria.Models.Agendamento>
+
+<div class="d-flex justify-content-between my-3">
+    <h3>Agendamentos (Ordenados por Data)</h3>
+    <a asp-action="Create" class="btn btn-primary">+ Novo Agendamento</a>
+</div>
+<table class="table table-bordered">
+    <thead><tr><th>Data e Hora</th><th>Motivo</th><th>Tutor (Tel)</th><th>Pet (Espécie)</th><th>Ações</th></tr></thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.DataHora.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@a.Motivo</td>
+                <td>@a.Tutor.Nome (@a.Tutor.Telefone)</td>
+                <td>@a.Pet.Nome (@a.Pet.Especie)</td>
+                <td><a asp-action="Edit" asp-route-id="@a.Id" class="btn btn-sm btn-warning">Alterar Data</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

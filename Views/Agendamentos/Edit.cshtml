@@ -1,0 +1,14 @@
+@model ClinicaVeterinaria.Models.Agendamento
+
+<h3>Atualizar Data do Agendamento</h3>
+<p><strong>Pet:</strong> @Model.Pet.Nome | <strong>Tutor:</strong> @Model.Tutor.Nome | <strong>Motivo:</strong> @Model.Motivo</p>
+
+<form asp-action="Edit" method="post" class="col-md-4">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label>Nova Data e Hora</label>
+        <input asp-for="DataHora" type="datetime-local" class="form-control" value="@Model.DataHora.ToString("yyyy-MM-ddTHH:mm")" />
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar Nova Data</button>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>

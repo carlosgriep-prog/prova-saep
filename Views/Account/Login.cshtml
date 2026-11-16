@@ -1,0 +1,19 @@
+@model ClinicaVeterinaria.ViewModels.LoginViewModel
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <h3 class="mb-3">Acesso ao Sistema</h3>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input asp-for="Email" class="form-control" placeholder="admin@clinica.com" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input asp-for="Senha" type="password" class="form-control" placeholder="123456" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+    </div>
+</div>

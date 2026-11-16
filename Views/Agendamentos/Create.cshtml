@@ -1,0 +1,12 @@
+@model ClinicaVeterinaria.Models.Agendamento
+
+<h3>Novo Agendamento</h3>
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-2"><label>Data e Hora</label><input asp-for="DataHora" type="datetime-local" class="form-control" /></div>
+    <div class="mb-2"><label>Motivo</label><input asp-for="Motivo" class="form-control" /></div>
+    <div class="mb-2"><label>Tutor</label><select asp-for="TutorId" asp-items="ViewBag.Tutores" class="form-select"></select></div>
+    <div class="mb-3"><label>Pet</label><select asp-for="PetId" asp-items="ViewBag.Pets" class="form-select"></select></div>
+    <button type="submit" class="btn btn-success">Agendar</button>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>
